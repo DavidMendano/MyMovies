@@ -1,0 +1,88 @@
+import com.dmendanyo.mymovies.Libs
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.dmendanyo.mymovies'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.dmendanyo.mymovies"
+        minSdk 28
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.3'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    implementation Libs.AndroidX.androidx_core
+    implementation Libs.AndroidX.Activity.activity
+
+    implementation Libs.AndroidX.Lifecycle.lifecycle
+    implementation Libs.AndroidX.Lifecycle.viewmodelKtx
+
+    implementation Libs.AndroidX.Compose.ui
+    implementation Libs.AndroidX.Compose.ui_tooling
+    implementation Libs.AndroidX.Compose.material
+    implementation Libs.AndroidX.Compose.material3
+    implementation Libs.AndroidX.Compose.navigation
+
+    implementation Libs.Coil.coil
+
+    implementation Libs.Lottie.lottie
+
+    implementation Libs.AndroidX.Compose.maps
+    implementation Libs.Maps.maps
+
+    implementation Libs.Hilt.android
+    implementation Libs.Hilt.navigation
+    kapt Libs.Hilt.compiler
+
+    implementation Libs.Retrofit.retrofit
+    implementation Libs.Retrofit.converterGson
+    implementation Libs.OkHttp3.loginInterceptor
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+}
