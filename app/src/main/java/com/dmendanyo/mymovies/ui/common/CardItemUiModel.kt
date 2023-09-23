@@ -1,6 +1,6 @@
 package com.dmendanyo.mymovies.ui.common
 
-import com.dmendanyo.domain.models.MovieApiModel
+import com.dmendanyo.domain.models.Movie
 
 data class CardItemUiModel(
     val id: Int,
@@ -9,7 +9,7 @@ data class CardItemUiModel(
     val subtitle: String? = null
 )
 
-fun MovieApiModel.mapToCardItemUiModel(): CardItemUiModel =
+fun Movie.mapToCardItemUiModel(): CardItemUiModel =
     CardItemUiModel(
         id = id,
         urlImage = urlImage,

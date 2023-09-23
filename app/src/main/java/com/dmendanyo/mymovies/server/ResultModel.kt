@@ -1,19 +1,19 @@
-package com.dmendanyo.domain.models
+package com.dmendanyo.mymovies.server
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieApiResultModel(
+data class ResultModel(
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")
-    val results: List<MovieApiModel>,
+    val results: List<ResultMovieModel>,
     @SerializedName("total_pages")
     val totalPages: Int,
     @SerializedName("total_results")
     val totalResults: Int
 )
 
-data class MovieApiModel(
+data class ResultMovieModel(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")

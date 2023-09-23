@@ -22,7 +22,7 @@ import com.dmendanyo.mymovies.R
 import com.dmendanyo.mymovies.ui.theme.black
 
 @Composable
-fun CardItem(category: CardItemUiModel, onClicked: () -> Unit) {
+fun CardItem(item: CardItemUiModel, onClicked: () -> Unit) {
     Card(
         modifier = Modifier
             .wrapContentSize()
@@ -31,12 +31,12 @@ fun CardItem(category: CardItemUiModel, onClicked: () -> Unit) {
         elevation = 4.dp
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            ItemImage(category.urlImage)
-            ItemTitle(category.title)
-            category.subtitle
+            ItemImage(item.urlImage)
+            ItemTitle(item.title)
+            item.subtitle
                 ?.let {
                     if (it.isBlank().not())
-                        ItemSubtitle(category.subtitle)
+                        ItemSubtitle(item.subtitle)
                 }
         }
     }
