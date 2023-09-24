@@ -4,4 +4,6 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="favourites">Favourites</string>
+
+    <string name="emtpy_favorites_message">There is no favorites titles yet</string>
 </resources>

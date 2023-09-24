@@ -7,5 +7,11 @@ interface LocalDataSource {
 
     fun getAllMovies(): Flow<List<Movie>>
 
+    fun getFavorites(): Flow<List<Movie>>
+
     suspend fun saveMovies(movies: List<Movie>)
+
+    suspend fun switchLike(id: Int)
+
+    suspend fun isEmpty(): Boolean
 }

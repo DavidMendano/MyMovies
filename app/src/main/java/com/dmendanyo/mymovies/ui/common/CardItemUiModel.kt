@@ -6,13 +6,13 @@ data class CardItemUiModel(
     val id: Int,
     val urlImage: String,
     val title: String,
-    val subtitle: String? = null
+    val favorite: Boolean = false,
 )
 
-fun Movie.mapToCardItemUiModel(): CardItemUiModel =
+fun Movie.toCardItemUiModel(): CardItemUiModel =
     CardItemUiModel(
         id = id,
         urlImage = urlImage,
         title = title,
-        subtitle = originalTitle,
+        favorite = favorite,
     )

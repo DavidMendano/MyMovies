@@ -10,9 +10,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,7 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.dmendanyo.mymovies.navigation.BottomNavigationScreen
-import com.dmendanyo.mymovies.ui.favourite.FavouritesScreen
+import com.dmendanyo.mymovies.ui.favourite.FavoritesScreen
 import com.dmendanyo.mymovies.ui.home.HomeScreen
 import com.dmendanyo.mymovies.ui.search.SearchScreen
 
@@ -54,7 +54,7 @@ fun MainScreenNavConfigurations(
         ) {
             composable(BottomNavigationScreen.Home.route) { HomeScreen() }
             composable(BottomNavigationScreen.Search.route) { SearchScreen() }
-            composable(BottomNavigationScreen.Favourites.route) { FavouritesScreen() }
+            composable(BottomNavigationScreen.Favourites.route) { FavoritesScreen() }
         }
     }
 }

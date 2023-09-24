@@ -52,5 +52,5 @@ fun MovieDB.toDomainModel(): Movie =
         originalTitle = originalTitle,
         popularity = popularity,
         voteAverage = voteAverage,
-        favorite = false,
+        favorite = favorite,
     )

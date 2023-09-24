@@ -8,5 +8,9 @@ interface MyMoviesRepository {
 
     val movies: Flow<List<Movie>>
 
+    val favorites: Flow<List<Movie>>
+
     suspend fun getMovies(): Error?
+
+    suspend fun switchLike(id: Int)
 }
