@@ -3,13 +3,12 @@ package com.dmendanyo.mymovies.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmendanyo.domain.extensions.mapToError
-import com.dmendanyo.domain.models.Error
 import com.dmendanyo.domain.usecases.GetMoviesUseCase
 import com.dmendanyo.domain.usecases.RequestMoviesUseCase
 import com.dmendanyo.domain.usecases.SwitchLikeUseCase
-import com.dmendanyo.mymovies.eventbus.EventBus
+import com.dmendanyo.mymovies.eventbus.showLoader
+import com.dmendanyo.mymovies.extensions.throwError
 import com.dmendanyo.mymovies.ui.common.CardItemUiModel
-import com.dmendanyo.mymovies.ui.common.LoaderEvent
 import com.dmendanyo.mymovies.ui.common.toCardItemUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,9 +24,6 @@ class HomeViewModel @Inject constructor(
     private val switchLikeUseCase: SwitchLikeUseCase,
 ) : ViewModel() {
 
-    private val _error = MutableStateFlow<Error?>(null)
-    val error: StateFlow<Error?> = _error
-
     private val _movies = MutableStateFlow<List<CardItemUiModel>>(listOf())
     val movies: StateFlow<List<CardItemUiModel>> = _movies
 
@@ -35,16 +31,15 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             fetchMoviesFromServer()
             getMoviesUseCase.invoke()
-                .catch { error -> _error.value = error.mapToError() }
+                .catch { error -> error.mapToError().throwError("Error fetching movies from DB") }
                 .collect { list -> _movies.value = list.map { it.toCardItemUiModel() } }
         }
     }
 
     private suspend fun fetchMoviesFromServer() {
-        EventBus.publish(LoaderEvent(true))
-        val error = requestMoviesUseCase.invoke()
-        _error.value = error
-        EventBus.publish(LoaderEvent(false))
+        showLoader(true)
+        requestMoviesUseCase.invoke()?.throwError("Error fetching movies from Server")
+        showLoader(false)
     }
 
     fun switchLike(id: Int) {

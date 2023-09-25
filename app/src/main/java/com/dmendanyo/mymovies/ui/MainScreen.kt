@@ -4,11 +4,12 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +25,9 @@ import com.dmendanyo.mymovies.navigation.BottomNavigationScreen
 import com.dmendanyo.mymovies.ui.favourite.FavoritesScreen
 import com.dmendanyo.mymovies.ui.home.HomeScreen
 import com.dmendanyo.mymovies.ui.search.SearchScreen
+import com.dmendanyo.mymovies.ui.theme.purple500
+import com.dmendanyo.mymovies.ui.theme.purple700
+import com.dmendanyo.mymovies.ui.theme.white
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -65,11 +69,23 @@ fun BottomBar(
     bottomNavItems: List<BottomNavigationScreen>
 ) {
     var currentRoute by remember { mutableStateOf(BottomNavigationScreen.Home.route) }
-    BottomNavigation {
+    NavigationBar(containerColor = purple700) {
         bottomNavItems.forEach { screen ->
-            BottomNavigationItem(
-                icon = { Icon(screen.icon, stringResource(id = screen.title)) },
-                label = { Text(text = stringResource(id = screen.title)) },
+            NavigationBarItem(
+                colors = NavigationBarItemDefaults.colors(indicatorColor = purple500),
+                icon = {
+                    Icon(
+                        screen.icon,
+                        stringResource(id = screen.title),
+                        tint = white
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = screen.title),
+                        color = white
+                    )
+                },
                 selected = currentRoute == screen.route,
                 onClick = {
                     if (currentRoute != screen.route) {

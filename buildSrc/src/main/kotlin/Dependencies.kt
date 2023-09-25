@@ -42,7 +42,6 @@ object Libs {
             const val ui = "androidx.compose.ui:ui:$ui_version"
             const val debug_ui = "androidx.compose.ui:ui-tooling:$ui_version"
             const val ui_tooling = "androidx.compose.ui:ui-tooling-preview:$ui_version"
-            const val material = "androidx.compose.material:material:$ui_version"
             const val material3 = "androidx.compose.material3:material3:$material_version"
             const val navigation = "androidx.navigation:navigation-compose:$navigation_version"
             const val maps = "com.google.maps.android:maps-compose:$maps_version"

@@ -62,7 +62,6 @@ dependencies {
 
     implementation Libs.AndroidX.Compose.ui
     implementation Libs.AndroidX.Compose.ui_tooling
-    implementation Libs.AndroidX.Compose.material
     implementation Libs.AndroidX.Compose.material3
     implementation Libs.AndroidX.Compose.navigation
 

@@ -2,7 +2,7 @@ package com.dmendanyo.mymovies.ui.common
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -59,11 +59,14 @@ private fun MyPreview() {
     Column {
         Title(Modifier.padding(8.dp), "Title")
         Subtitle(Modifier.padding(16.dp), "Subtitle")
-        Description(Modifier.padding(24.dp), "A very long description A very long description A very long description " +
+        Description(
+            Modifier.padding(24.dp),
             "A very long description A very long description A very long description " +
-            "A very long description A very long description A very long description " +
-            "A very long description A very long description A very long description " +
-            "A very long description A very long description A very long description " +
-            "A very long description A very long description A very long description ")
+                "A very long description A very long description A very long description " +
+                "A very long description A very long description A very long description " +
+                "A very long description A very long description A very long description " +
+                "A very long description A very long description A very long description " +
+                "A very long description A very long description A very long description "
+        )
     }
 }
