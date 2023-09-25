@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmendanyo.domain.models.Movie
 import com.dmendanyo.domain.usecases.GetMovieDetailUseCase
+import com.dmendanyo.domain.usecases.SwitchLikeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase,
+    private val switchLikeUseCase: SwitchLikeUseCase,
 ) : ViewModel() {
 
     private val _movie = MutableStateFlow<MovieDetailUiModel?>(null)
@@ -24,6 +26,12 @@ class DetailViewModel @Inject constructor(
                 .collect {
                     _movie.value = it.toMovieDetailUiModel()
                 }
+        }
+    }
+
+    fun switchLike(id: Int) {
+        viewModelScope.launch {
+            switchLikeUseCase.invoke(id)
         }
     }
 }
@@ -55,6 +63,6 @@ fun Movie.toMovieDetailUiModel(): MovieDetailUiModel =
         originalTitle = originalTitle,
         popularity = popularity,
         voteAverage = voteAverage,
-        favorite = false,
+        favorite = favorite,
     )
 
