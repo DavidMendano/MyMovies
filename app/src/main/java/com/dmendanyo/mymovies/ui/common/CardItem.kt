@@ -32,12 +32,17 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 @Composable
-fun CardItem(item: CardItemUiModel, onLikeClicked: () -> Unit) {
+fun CardItem(
+    item: CardItemUiModel,
+    onMovieClicked: (Int) -> Unit,
+    onLikeClicked: () -> Unit,
+) {
     Card(
         Modifier
             .fillMaxWidth(0.5f)
             .aspectRatio(0.75f)
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onMovieClicked(item.id) },
         elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -113,7 +118,7 @@ private fun MovieTitle(movie: CardItemUiModel) {
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF, heightDp = 1000, widthDp = 500)
 @Composable
 private fun CardItemPreview() {
-    CardItem(fakeModel) { }
+    CardItem(fakeModel, {}) { }
 }
 
 private val fakeModel = CardItemUiModel(

@@ -37,4 +37,7 @@ class MyMoviesRepositoryImpl @Inject constructor(
     override suspend fun switchLike(id: Int) {
         localDataSource.switchLike(id)
     }
+
+    override suspend fun getMovieDetail(id: Int): Flow<Movie> =
+        localDataSource.getMovieDetail(id)
 }

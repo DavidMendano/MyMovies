@@ -13,12 +13,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.dmendanyo.mymovies.R
 import com.dmendanyo.mymovies.eventbus.Event
 import com.dmendanyo.mymovies.extensions.subscribeError
 import com.dmendanyo.mymovies.extensions.subscribeLoader
+import com.dmendanyo.mymovies.navigation.Routes
 import com.dmendanyo.mymovies.ui.common.ErrorBottomSheet
 import com.dmendanyo.mymovies.ui.common.LoaderComponent
+import com.dmendanyo.mymovies.ui.detail.DetailScreen
 import com.dmendanyo.mymovies.ui.theme.MyMoviesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,14 +52,29 @@ class MainActivity : ComponentActivity() {
             MyMoviesTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     val showLoader by remember { shouldShowLoader }
-                    Box {
-                        MainScreen()
-                        if (showLoader) {
-                            LoaderComponent()
+                    val navController = rememberNavController()
+
+                    NavHost(
+                        navController = navController, startDestination = Routes.MainScreen.route
+                    ) {
+                        composable(Routes.MainScreen.route) {
+                            Box {
+                                if (showLoader) {
+                                    LoaderComponent()
+                                }
+                                MainScreen {
+                                    navController.navigate(Routes.DetailScreen.create(it))
+                                }
+                            }
+                        }
+                        composable(
+                            Routes.DetailScreen.route,
+                            arguments = listOf(navArgument("id") { type = NavType.IntType })
+                        ) { backStackEntry ->
+                            DetailScreen(backStackEntry.arguments?.getInt("id") ?: 0)
                         }
                     }
                 }

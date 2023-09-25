@@ -13,4 +13,6 @@ interface MyMoviesRepository {
     suspend fun getMovies(): Error?
 
     suspend fun switchLike(id: Int)
+
+    suspend fun getMovieDetail(id: Int): Flow<Movie>
 }

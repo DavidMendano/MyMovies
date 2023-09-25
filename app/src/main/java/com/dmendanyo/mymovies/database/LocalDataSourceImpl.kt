@@ -30,4 +30,7 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun isEmpty(): Boolean = moviesDao.moviesCount() == 0
+
+    override suspend fun getMovieDetail(id: Int): Flow<Movie> =
+        moviesDao.findById(id).map { it.toDomainModel() }
 }

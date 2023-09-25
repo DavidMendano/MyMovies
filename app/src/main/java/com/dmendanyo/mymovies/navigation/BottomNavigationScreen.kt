@@ -14,11 +14,11 @@ sealed class BottomNavigationScreen(
     val icon: ImageVector
 ) {
     object Home :
-        BottomNavigationScreen("Home", R.string.home, Icons.Default.Home)
+        BottomNavigationScreen("HomeScreen", R.string.home, Icons.Default.Home)
 
     object Search :
-        BottomNavigationScreen("Search", R.string.search, Icons.Default.Search)
+        BottomNavigationScreen("SearchScreen", R.string.search, Icons.Default.Search)
 
     object Favourites :
-        BottomNavigationScreen("Favourites", R.string.favourites, Icons.Default.Star)
+        BottomNavigationScreen("FavouritesScreen", R.string.favourites, Icons.Default.Star)
 }

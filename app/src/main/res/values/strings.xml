@@ -8,4 +8,10 @@
     <string name="emtpy_favorites_message">There is no favorites titles yet</string>
     <string name="error">Error</string>
     <string name="accept">Accept</string>
+
+    <string name="title">Title</string>
+    <string name="overview">Overview</string>
+    <string name="release_date">Release date</string>
+    <string name="original_language">Original language</string>
+    <string name="average">Vote average</string>
 </resources>

@@ -31,7 +31,9 @@ import com.dmendanyo.mymovies.ui.theme.white
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    onMovieClicked: (Int) -> Unit,
+) {
     val navController = rememberNavController()
     val bottomNavItems = listOf(
         BottomNavigationScreen.Home,
@@ -42,23 +44,24 @@ fun MainScreen() {
     Scaffold(
         bottomBar = { BottomBar(navController, bottomNavItems) }
     ) {
-        MainScreenNavConfigurations(navController, it)
+        MainScreenNavConfigurations(navController, it, onMovieClicked)
     }
 }
 
 @Composable
 fun MainScreenNavConfigurations(
     navController: NavHostController,
-    padding: PaddingValues
+    padding: PaddingValues,
+    onMovieClicked: (Int) -> Unit,
 ) {
     Box(Modifier.padding(padding)) {
         NavHost(
             navController = navController,
             startDestination = BottomNavigationScreen.Home.route
         ) {
-            composable(BottomNavigationScreen.Home.route) { HomeScreen() }
-            composable(BottomNavigationScreen.Search.route) { SearchScreen() }
-            composable(BottomNavigationScreen.Favourites.route) { FavoritesScreen() }
+            composable(BottomNavigationScreen.Home.route) { HomeScreen(onMovieClicked) }
+            composable(BottomNavigationScreen.Search.route) { SearchScreen(onMovieClicked) }
+            composable(BottomNavigationScreen.Favourites.route) { FavoritesScreen(onMovieClicked) }
         }
     }
 }

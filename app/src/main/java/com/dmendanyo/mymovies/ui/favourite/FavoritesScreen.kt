@@ -23,7 +23,10 @@ import com.dmendanyo.mymovies.ui.common.CardItem
 import com.dmendanyo.mymovies.ui.theme.black
 
 @Composable
-fun FavoritesScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
+fun FavoritesScreen(
+    onMovieClicked: (Int) -> Unit,
+    viewModel: FavoriteViewModel = hiltViewModel(),
+) {
     val movies by viewModel.favorites.collectAsState()
 
     Box(Modifier.fillMaxSize()) {
@@ -32,7 +35,7 @@ fun FavoritesScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
         } else {
             LazyVerticalGrid(columns = GridCells.Fixed(2)) {
                 items(movies) {
-                    CardItem(it) { viewModel.switchLike(it.id) }
+                    CardItem(it, onMovieClicked) { viewModel.switchLike(it.id) }
                 }
             }
         }

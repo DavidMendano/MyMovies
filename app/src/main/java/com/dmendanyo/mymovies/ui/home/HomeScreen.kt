@@ -10,12 +10,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.dmendanyo.mymovies.ui.common.CardItem
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    onMovieClicked: (Int) -> Unit,
+    viewModel: HomeViewModel = hiltViewModel(),
+) {
     val movies by viewModel.movies.collectAsState()
 
     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
         items(movies) {
-            CardItem(it) { viewModel.switchLike(it.id) }
+            CardItem(it, onMovieClicked) { viewModel.switchLike(it.id) }
         }
     }
 }
