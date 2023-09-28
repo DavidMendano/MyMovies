@@ -20,13 +20,18 @@ class DetailViewModel @Inject constructor(
     private val _movie = MutableStateFlow<MovieDetailUiModel?>(null)
     val movie: StateFlow<MovieDetailUiModel?> = _movie
 
+    private val _isFromServer = MutableStateFlow(false)
+    val isFromServer: StateFlow<Boolean> = _isFromServer
+
     fun getMovieDetail(id: Int) {
         viewModelScope.launch {
             getMovieDetailUseCase.invoke(id)
                 .collect {
                     if (it == null) {
+                        _isFromServer.value = true
                         getMovieDetailFromServer(id)
                     } else {
+                        _isFromServer.value = false
                         _movie.value = it.toMovieDetailUiModel()
                     }
                 }

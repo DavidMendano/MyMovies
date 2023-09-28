@@ -39,6 +39,7 @@ fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel()
 ) {
     val movie by viewModel.movie.collectAsState()
+    val isFromServer by viewModel.isFromServer.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getMovieDetail(id)
@@ -48,8 +49,10 @@ fun DetailScreen(
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Box {
             Image(movie?.urlImage ?: "")
-            MovieLike(isLiked = movie?.favorite ?: false) {
-                viewModel.switchLike(movie?.id ?: 0)
+            if (isFromServer.not()) {
+                MovieLike(isLiked = movie?.favorite ?: false) {
+                    viewModel.switchLike(movie?.id ?: 0)
+                }
             }
         }
         Column(
