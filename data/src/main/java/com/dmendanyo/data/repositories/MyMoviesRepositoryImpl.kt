@@ -7,6 +7,7 @@ import com.dmendanyo.domain.models.Error
 import com.dmendanyo.domain.models.Movie
 import com.dmendanyo.domain.repositories.MyMoviesRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class MyMoviesRepositoryImpl @Inject constructor(
@@ -38,6 +39,16 @@ class MyMoviesRepositoryImpl @Inject constructor(
         localDataSource.switchLike(id)
     }
 
-    override suspend fun getMovieDetail(id: Int): Flow<Movie> =
+    override suspend fun getMovieDetail(id: Int): Flow<Movie?> =
         localDataSource.getMovieDetail(id)
+
+    override suspend fun search(query: String): Flow<List<Movie>> =
+        remoteDataSource.search(query)
+            .fold(
+                onSuccess = { flowOf(it) },
+                onFailure = { flowOf(listOf()) },
+            )
+
+    override suspend fun getMovieDetailFromServer(id: Int): Flow<Movie?> =
+        flowOf(remoteDataSource.getMovieById(id).getOrNull())
 }

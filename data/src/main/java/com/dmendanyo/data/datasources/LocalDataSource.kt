@@ -15,5 +15,5 @@ interface LocalDataSource {
 
     suspend fun isEmpty(): Boolean
 
-    suspend fun getMovieDetail(id: Int): Flow<Movie>
+    suspend fun getMovieDetail(id: Int): Flow<Movie?>
 }

@@ -37,20 +37,22 @@ fun Movie.fromDomainModel(): MovieDB =
         favorite = false,
     )
 
-fun List<MovieDB>.toDomainModel(): List<Movie> =
-    this.map { it.toDomainModel() }
+fun List<MovieDB?>.toDomainModel(): List<Movie> =
+    this.mapNotNull { it?.toDomainModel() }
 
-fun MovieDB.toDomainModel(): Movie =
-    Movie(
-        id = id,
-        title = title,
-        overview = overview,
-        releaseDate = releaseDate,
-        urlImage = urlImage,
-        backdropPath = backdropPath ?: "",
-        originalLanguage = originalLanguage,
-        originalTitle = originalTitle,
-        popularity = popularity,
-        voteAverage = voteAverage,
-        favorite = favorite,
-    )
+fun MovieDB?.toDomainModel(): Movie? =
+    this?.let {
+        Movie(
+            id = id,
+            title = title,
+            overview = overview,
+            releaseDate = releaseDate,
+            urlImage = urlImage,
+            backdropPath = backdropPath ?: "",
+            originalLanguage = originalLanguage,
+            originalTitle = originalTitle,
+            popularity = popularity,
+            voteAverage = voteAverage,
+            favorite = favorite,
+        )
+    }

@@ -11,12 +11,11 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -32,6 +31,7 @@ import com.dmendanyo.mymovies.ui.theme.white
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
+    viewModel: MainViewModel = hiltViewModel(),
     onMovieClicked: (Int) -> Unit,
 ) {
     val navController = rememberNavController()
@@ -42,7 +42,7 @@ fun MainScreen(
     )
 
     Scaffold(
-        bottomBar = { BottomBar(navController, bottomNavItems) }
+        bottomBar = { BottomBar(navController, bottomNavItems, viewModel) }
     ) {
         MainScreenNavConfigurations(navController, it, onMovieClicked)
     }
@@ -69,9 +69,11 @@ fun MainScreenNavConfigurations(
 @Composable
 fun BottomBar(
     navController: NavHostController,
-    bottomNavItems: List<BottomNavigationScreen>
+    bottomNavItems: List<BottomNavigationScreen>,
+    viewModel: MainViewModel,
 ) {
-    var currentRoute by remember { mutableStateOf(BottomNavigationScreen.Home.route) }
+    val currentRoute by viewModel.currentTab.collectAsState()
+    
     NavigationBar(containerColor = purple700) {
         bottomNavItems.forEach { screen ->
             NavigationBarItem(
@@ -92,7 +94,7 @@ fun BottomBar(
                 selected = currentRoute == screen.route,
                 onClick = {
                     if (currentRoute != screen.route) {
-                        currentRoute = screen.route
+                        viewModel.setCurrentRoute(screen.route)
                         navController.navigate(screen.route)
                     }
                 }

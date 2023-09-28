@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +36,7 @@ import coil.compose.AsyncImage
 fun CardItem(
     item: CardItemUiModel,
     onMovieClicked: (Int) -> Unit,
-    onLikeClicked: () -> Unit,
+    onLikeClicked: (() -> Unit)? = null,
 ) {
     Card(
         Modifier
@@ -62,7 +63,7 @@ fun ItemImage(urlImage: String) {
 }
 
 @Composable
-private fun ItemDetails(movie: CardItemUiModel, onLikeClicked: () -> Unit) {
+private fun ItemDetails(movie: CardItemUiModel, onLikeClicked: (() -> Unit)?) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -78,19 +79,23 @@ private fun ItemDetails(movie: CardItemUiModel, onLikeClicked: () -> Unit) {
             .padding(bottom = 12.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        MovieLike(movie, onLikeClicked)
+        if (onLikeClicked != null) {
+            MovieLike(movie, onLikeClicked)
+        } else {
+            Spacer(modifier = Modifier.weight(1f))
+        }
         MovieTitle(movie)
     }
 }
 
 @Composable
-private fun MovieLike(movie: CardItemUiModel, onLikeClicked: () -> Unit) {
+private fun MovieLike(movie: CardItemUiModel, onLikeClicked: (() -> Unit)) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
         val iconColor = ColorFilter.tint(if (movie.favorite) Color.Red else Color.White)
         Image(
             modifier = Modifier
                 .padding(8.dp)
-                .clickable(onClick = onLikeClicked),
+                .clickable { onLikeClicked() },
             imageVector = Icons.Filled.Favorite,
             contentDescription = "Favourite",
             colorFilter = iconColor,
@@ -118,7 +123,10 @@ private fun MovieTitle(movie: CardItemUiModel) {
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF, heightDp = 1000, widthDp = 500)
 @Composable
 private fun CardItemPreview() {
-    CardItem(fakeModel, {}) { }
+    Column {
+        CardItem(fakeModel, {}, null)
+        CardItem(fakeModel, {}) {}
+    }
 }
 
 private val fakeModel = CardItemUiModel(

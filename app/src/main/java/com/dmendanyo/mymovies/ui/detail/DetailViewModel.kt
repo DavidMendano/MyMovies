@@ -24,10 +24,35 @@ class DetailViewModel @Inject constructor(
         viewModelScope.launch {
             getMovieDetailUseCase.invoke(id)
                 .collect {
-                    _movie.value = it.toMovieDetailUiModel()
+                    if (it == null) {
+                        getMovieDetailFromServer(id)
+                    } else {
+                        _movie.value = it.toMovieDetailUiModel()
+                    }
                 }
         }
     }
+
+    private suspend fun getMovieDetailFromServer(id: Int) =
+        getMovieDetailUseCase.getMovieFromServer(id).collect {
+            if (it != null) {
+                _movie.value = it.toMovieDetailUiModel()
+            } else {
+                _movie.value = MovieDetailUiModel(
+                    id = 0,
+                    title = "title",
+                    overview = "overview",
+                    releaseDate = "",
+                    urlImage = "",
+                    backdropPath = "",
+                    originalLanguage = "",
+                    originalTitle = "",
+                    popularity = 0.0,
+                    voteAverage = 0.0,
+                    favorite = false,
+                )
+            }
+        }
 
     fun switchLike(id: Int) {
         viewModelScope.launch {

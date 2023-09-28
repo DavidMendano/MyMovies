@@ -9,6 +9,9 @@ class GetMovieDetailUseCase @Inject constructor(
     private val repository: MyMoviesRepository,
 ) {
 
-    suspend operator fun invoke(id: Int): Flow<Movie> =
+    suspend operator fun invoke(id: Int): Flow<Movie?> =
         repository.getMovieDetail(id)
+
+    suspend fun getMovieFromServer(id: Int): Flow<Movie?> =
+        repository.getMovieDetailFromServer(id)
 }

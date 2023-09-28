@@ -18,6 +18,21 @@ class RemoteDataSourceImpl @Inject constructor(
                 .results
                 .map { it.toDomainModel() }
         }
+
+    override suspend fun search(query: String): Result<List<Movie>> =
+        safeCall {
+            service
+                .search(apiKey, query)
+                .results
+                .map { it.toDomainModel() }
+        }
+
+    override suspend fun getMovieById(id: Int): Result<Movie> =
+        safeCall {
+            service
+                .getMovieById(id, apiKey)
+                .toDomainModel()
+        }
 }
 
 private fun ResultMovieModel.toDomainModel(): Movie =

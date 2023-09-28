@@ -22,7 +22,7 @@ interface MyMoviesDao {
     suspend fun insertMovie(movies: MovieDB)
 
     @Query("SELECT * FROM MovieDB WHERE id = :id")
-    fun findById(id: Int): Flow<MovieDB>
+    fun findById(id: Int): Flow<MovieDB?>
 
     @Query("SELECT COUNT(id) FROM MovieDB")
     suspend fun moviesCount(): Int

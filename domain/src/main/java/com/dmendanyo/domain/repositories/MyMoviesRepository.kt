@@ -14,5 +14,9 @@ interface MyMoviesRepository {
 
     suspend fun switchLike(id: Int)
 
-    suspend fun getMovieDetail(id: Int): Flow<Movie>
+    suspend fun getMovieDetail(id: Int): Flow<Movie?>
+
+    suspend fun search(query: String): Flow<List<Movie>>
+
+    suspend fun getMovieDetailFromServer(id: Int): Flow<Movie?>
 }
