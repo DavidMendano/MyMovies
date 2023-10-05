@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
     private val _movies = MutableStateFlow<List<CardItemUiModel>>(listOf())
     val movies: StateFlow<List<CardItemUiModel>> = _movies
 
-    init {
+    fun onUiReady() {
         viewModelScope.launch {
             fetchMoviesFromServer()
             getMoviesUseCase.invoke()

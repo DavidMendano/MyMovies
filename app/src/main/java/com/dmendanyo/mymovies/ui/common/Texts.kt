@@ -29,14 +29,14 @@ fun Title(modifier: Modifier, text: String) {
 }
 
 @Composable
-fun Subtitle(modifier: Modifier, text: String) {
+fun Subtitle(modifier: Modifier, text: String, maxLines: Int = 2) {
     Text(
         modifier = modifier,
         text = text,
         textAlign = TextAlign.Start,
         color = gray,
         fontSize = 15.sp,
-        maxLines = 2,
+        maxLines = maxLines,
         overflow = TextOverflow.Ellipsis
     )
 }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dmendanyo.mymovies.ui.common.CardItem
+import com.dmendanyo.mymovies.ui.common.RequestLocationPermission
 
 @Composable
 fun HomeScreen(
@@ -15,6 +16,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val movies by viewModel.movies.collectAsState()
+    RequestLocationPermission { viewModel.onUiReady() }
 
     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
         items(movies) {

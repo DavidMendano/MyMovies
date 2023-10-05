@@ -8,10 +8,15 @@
     <string name="emtpy_favorites_message">There is no favorites titles yet</string>
     <string name="error">Error</string>
     <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
 
     <string name="title">Title</string>
     <string name="overview">Overview</string>
     <string name="release_date">Release date</string>
     <string name="original_language">Original language</string>
     <string name="average">Vote average</string>
+
+    <string name="permission_denied_dialog_title">Permission denied</string>
+    <string name="permission_denied_dialog_description">We need your permission to get more accurate movies for you. We will continue with a default location (US)</string>
+    <string name="permission_denied_dialog_accept_button">Accept</string>
 </resources>

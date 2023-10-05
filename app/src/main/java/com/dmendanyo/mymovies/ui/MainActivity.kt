@@ -31,6 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -62,11 +63,11 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(Routes.MainScreen.route) {
                             Box {
-                                if (showLoader) {
-                                    LoaderComponent()
-                                }
                                 MainScreen {
                                     navController.navigate(Routes.DetailScreen.create(it))
+                                }
+                                if (showLoader) {
+                                    LoaderComponent()
                                 }
                             }
                         }
