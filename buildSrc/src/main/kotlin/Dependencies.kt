@@ -2,6 +2,8 @@ package com.dmendanyo.mymovies
 
 object Libs {
 
+    const val playServicesLocation = "com.google.android.gms:play-services-location:21.0.1"
+
     object Kotlin {
         private const val version = "1.6.10"
 

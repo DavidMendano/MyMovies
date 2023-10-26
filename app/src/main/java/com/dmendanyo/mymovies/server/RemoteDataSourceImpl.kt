@@ -11,10 +11,10 @@ class RemoteDataSourceImpl @Inject constructor(
     private val service: MyMoviesService,
 ) : RemoteDataSource {
 
-    override suspend fun getMovies(): Result<List<Movie>> =
+    override suspend fun getMovies(region: String): Result<List<Movie>> =
         safeCall {
             service
-                .getPopularMovies(apiKey, "es")
+                .getPopularMovies(apiKey, region)
                 .results
                 .map { it.toDomainModel() }
         }

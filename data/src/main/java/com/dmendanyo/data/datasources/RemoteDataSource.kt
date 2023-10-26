@@ -4,7 +4,7 @@ import com.dmendanyo.domain.models.Movie
 
 interface RemoteDataSource {
 
-    suspend fun getMovies(): Result<List<Movie>>
+    suspend fun getMovies(region: String): Result<List<Movie>>
 
     suspend fun search(query: String): Result<List<Movie>>
 

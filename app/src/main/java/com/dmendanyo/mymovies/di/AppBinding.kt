@@ -1,10 +1,12 @@
 package com.dmendanyo.mymovies.di
 
 import com.dmendanyo.data.datasources.LocalDataSource
+import com.dmendanyo.data.datasources.LocationProvider
 import com.dmendanyo.data.datasources.RemoteDataSource
 import com.dmendanyo.data.repositories.MyMoviesRepositoryImpl
 import com.dmendanyo.domain.repositories.MyMoviesRepository
 import com.dmendanyo.mymovies.database.LocalDataSourceImpl
+import com.dmendanyo.mymovies.database.LocationProviderImpl
 import com.dmendanyo.mymovies.server.RemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
@@ -23,4 +25,7 @@ abstract class AppBinding {
 
     @Binds
     abstract fun bindMyMoviesRemoteDataSource(dataSource: RemoteDataSourceImpl): RemoteDataSource
+
+    @Binds
+    abstract fun bindLocationDataSource(dataSource: LocationProviderImpl): LocationProvider
 }

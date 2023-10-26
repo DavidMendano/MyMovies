@@ -1,6 +1,5 @@
 package com.dmendanyo.mymovies.ui.common
 
-import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
 import com.dmendanyo.mymovies.R
 
-private const val locationPermission = Manifest.permission.ACCESS_COARSE_LOCATION
 
 @Composable
 fun RequestLocationPermission(
@@ -85,10 +83,4 @@ private fun ShowAlertDialog(
             },
         )
     }
-}
-
-sealed interface PermissionStatus {
-    object NotRequested : PermissionStatus
-    object Requested : PermissionStatus
-    object Denied : PermissionStatus
 }
