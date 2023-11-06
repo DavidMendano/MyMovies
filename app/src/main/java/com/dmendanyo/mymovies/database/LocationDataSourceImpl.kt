@@ -2,38 +2,22 @@ package com.dmendanyo.mymovies.database
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Build
-import androidx.core.content.ContextCompat
-import com.dmendanyo.data.datasources.LocationProvider
-import com.dmendanyo.mymovies.ui.common.defaultRegion
-import com.dmendanyo.mymovies.ui.common.locationPermission
+import com.dmendanyo.data.datasources.LocationDataSource
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
 
-class LocationProviderImpl @Inject constructor(
-    private val application: Application
-) : LocationProvider {
+class LocationDataSourceImpl @Inject constructor(application: Application) : LocationDataSource {
 
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)
     private val geocoder = Geocoder(application)
 
-    override suspend fun getRegion(): String =
-        if (
-            ContextCompat.checkSelfPermission(
-                application,
-                locationPermission
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            getLastKnownLocation().toRegion() ?: defaultRegion
-        } else {
-            defaultRegion
-        }
+    override suspend fun getLastKnownRegion(): String? = getLastKnownLocation().toRegion()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @SuppressLint("MissingPermission")

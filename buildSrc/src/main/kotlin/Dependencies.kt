@@ -104,4 +104,18 @@ object Libs {
 
         const val lottie = "com.airbnb.android:lottie-compose:$version"
     }
+
+    object JUnit {
+        private const val version = "4.13.2"
+
+        const val junit = "junit:junit:$version"
+    }
+
+    object Mockito {
+        private const val version_kotlin = "4.0.0"
+        private const val version_inline = "4.4.0"
+
+        const val kotlin = "org.mockito.kotlin:mockito-kotlin:$version_kotlin"
+        const val inline = "org.mockito:mockito-inline:$version_inline"
+    }
 }

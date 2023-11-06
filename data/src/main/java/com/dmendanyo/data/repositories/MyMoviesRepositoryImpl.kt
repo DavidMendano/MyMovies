@@ -1,18 +1,18 @@
 package com.dmendanyo.data.repositories
 
 import com.dmendanyo.data.datasources.LocalDataSource
-import com.dmendanyo.data.datasources.LocationProvider
 import com.dmendanyo.data.datasources.RemoteDataSource
 import com.dmendanyo.domain.extensions.mapToError
 import com.dmendanyo.domain.models.Error
 import com.dmendanyo.domain.models.Movie
+import com.dmendanyo.domain.repositories.LocationRepository
 import com.dmendanyo.domain.repositories.MyMoviesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class MyMoviesRepositoryImpl @Inject constructor(
-    private val locationProvider: LocationProvider,
+    private val locationRepository: LocationRepository,
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
 ) : MyMoviesRepository {
@@ -25,7 +25,7 @@ class MyMoviesRepositoryImpl @Inject constructor(
 
     override suspend fun getMovies(): Error? =
         if (localDataSource.isEmpty()) {
-            remoteDataSource.getMovies(locationProvider.getRegion())
+            remoteDataSource.getMovies(locationRepository.getRegion())
                 .fold(
                     onSuccess = {
                         localDataSource.saveMovies(it)

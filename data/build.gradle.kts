@@ -13,6 +13,10 @@ java {
 dependencies {
     implementation(project(mapOf("path" to ":domain")))
 
-    implementation(com.dmendanyo.mymovies.Libs.Kotlin.Coroutines.core)
-    implementation(com.dmendanyo.mymovies.Libs.JavaX.javax)
+    implementation(Libs.Kotlin.Coroutines.core)
+    implementation(Libs.JavaX.javax)
+
+    testImplementation(Libs.JUnit.junit)
+    testImplementation(Libs.Mockito.kotlin)
+    testImplementation(Libs.Mockito.inline)
 }
