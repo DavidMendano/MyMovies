@@ -118,4 +118,10 @@ object Libs {
         const val kotlin = "org.mockito.kotlin:mockito-kotlin:$version_kotlin"
         const val inline = "org.mockito:mockito-inline:$version_inline"
     }
+
+    object Turbine {
+        private const val version = "1.0.0"
+
+        const val turbine = "app.cash.turbine:turbine:$version"
+    }
 }
