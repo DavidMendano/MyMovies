@@ -8,7 +8,6 @@ import com.dmendanyo.domain.repositories.MyMoviesRepository
 import com.dmendanyo.domain.usecases.common.sampleMovie
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,10 +39,6 @@ class MyMoviesRepositoryTest {
             remoteDataSource,
             localDataSource,
         )
-    }
-
-    @After
-    fun tearDown() {
     }
 
     @Test

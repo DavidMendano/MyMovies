@@ -86,10 +86,12 @@ dependencies {
 
     implementation Libs.playServicesLocation
 
+    testImplementation Libs.Kotlin.Coroutines.test
     testImplementation Libs.JUnit.junit
     testImplementation Libs.Mockito.kotlin
     testImplementation Libs.Mockito.inline
-    
+    testImplementation Libs.Turbine.turbine
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
